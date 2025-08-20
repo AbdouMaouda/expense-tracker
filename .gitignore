@@ -1,0 +1,9 @@
+target/
+.idea/
+*.iml
+out/
+*.log
+# local config (keep secrets out)
+application-*.yml
+application-*.yaml
+application-*.properties
