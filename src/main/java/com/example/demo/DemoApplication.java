@@ -17,5 +17,6 @@ public class DemoApplication implements CommandLineRunner {
     public void run(String...args){
     List<Expense>expenseList=ExpenseDataLoader.getExpenseList();
     expenseList.forEach(System.out::println);
+
 }
 }

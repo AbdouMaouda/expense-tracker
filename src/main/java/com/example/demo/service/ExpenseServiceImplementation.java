@@ -4,6 +4,7 @@ import com.example.demo.model.Expense;
 import com.example.demo.utils.ExpenseDataLoader;
 import com.fasterxml.jackson.databind.DatabindException;
 import lombok.Data;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service
+@Profile("Json")
 public class ExpenseServiceImplementation implements ExpenseService {
 
     private static final AtomicLong idCounter = new AtomicLong();//use for unique id
@@ -62,18 +64,18 @@ public class ExpenseServiceImplementation implements ExpenseService {
 
     @Override
     public boolean updateExpense(Expense Updatedexpense) {
-       Optional<Expense> ExistingExpense=getExpenseById(Updatedexpense.getId());
-if (ExistingExpense.isPresent()) {
-    ExpenseDataLoader.getExpenseList().remove(ExistingExpense.get());
-    ExpenseDataLoader.getExpenseList().add(Updatedexpense);
-    return true;
-}
+        Optional<Expense> ExistingExpense = getExpenseById(Updatedexpense.getId());
+        if (ExistingExpense.isPresent()) {
+            ExpenseDataLoader.getExpenseList().remove(ExistingExpense.get());
+            ExpenseDataLoader.getExpenseList().add(Updatedexpense);
+            return true;
+        }
         return false;
     }
 
     @Override
-    public boolean deleteExpense(Long  id) {
-        Optional<Expense>existingExpense=getExpenseById(id);
+    public boolean deleteExpense(Long id) {
+        Optional<Expense> existingExpense = getExpenseById(id);
         if (existingExpense.isPresent()) {
             ExpenseDataLoader.getExpenseList().remove(existingExpense.get());
             return true;

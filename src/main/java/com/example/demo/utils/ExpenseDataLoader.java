@@ -17,11 +17,10 @@ public class ExpenseDataLoader {
 
     private static List<Expense> expenseList = new ArrayList<Expense>();
 
-    @PostConstruct//The moment this class is used upload data
+    @PostConstruct//The moment this class is used upload data from the Json File
     public void init() {
         InputStream inputStream = getClass().getResourceAsStream("/expenseData.json");
         if (inputStream == null) throw new IllegalStateException("Not found: /expenseData.json");
-
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             expenseList = objectMapper.readValue(inputStream,

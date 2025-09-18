@@ -4,26 +4,20 @@ package com.example.demo.controller;
 import com.example.demo.model.Expense;
 import com.example.demo.service.ExpenseService;
 import com.example.demo.service.ExpenseServiceImplementation;
-import com.example.demo.utils.ExpenseDataLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 @RestController
 public class ExpenseController {
 
     private final ExpenseService expenseService;
-    private final ExpenseServiceImplementation expenseServiceImplementation;
 
-    public ExpenseController(ExpenseService expenseService, ExpenseServiceImplementation expenseServiceImplementation) {
+    public ExpenseController(ExpenseService expenseService) {
         this.expenseService = expenseService;
-        this.expenseServiceImplementation = expenseServiceImplementation;
     }
 
     @GetMapping("/expenses/day/{date}")
@@ -66,6 +60,17 @@ public class ExpenseController {
         boolean isUpdated = expenseService.updateExpense(expense);
         if (isUpdated) {
             return new ResponseEntity<>(expense, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    @DeleteMapping("/expenses/{id}")
+    public ResponseEntity<Expense> deleteExpense(@PathVariable Long id) {
+        boolean isDeleted = expenseService.deleteExpense(id);
+        if (isDeleted) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

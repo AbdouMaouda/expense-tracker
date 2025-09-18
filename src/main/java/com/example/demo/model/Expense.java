@@ -1,32 +1,21 @@
 package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Generated;
 
-@Data//Used to create getter,setter,ToString,HashCode and the equal method
+@Entity
+@Data
 public class Expense {
-    @JsonProperty("id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//Assign the value of the ID automatically
     private Long id;
-
-    @JsonProperty("expenseType")
     private int ExpenseType;
-
-    @JsonProperty("date")
     private String date;
-
-    @JsonProperty("amount")
     private double amount;
-
-    @JsonProperty("category")
     private String category;
-
-    @JsonProperty("account")
     private String account;
-
-    @JsonProperty("note")
     private String note;
-
-
-
 
 }
