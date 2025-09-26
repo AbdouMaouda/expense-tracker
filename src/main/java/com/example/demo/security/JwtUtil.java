@@ -1,4 +1,4 @@
-package com.example.demo.utils;
+package com.example.demo.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -25,9 +25,11 @@ public class JwtUtil {
                 .compact();
 
     }
+
     public String extractUsername(String token) {
         return extractAllClaims(token).getSubject();
     }
+
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(SECRET_KEY)
@@ -35,4 +37,14 @@ public class JwtUtil {
                 .parseClaimsJws(token)
                 .getBody();
     }
+
+    private boolean isTokenExpired(String token) {
+        return extractAllClaims(token).getExpiration().before(new Date());
+    }
+
+    public boolean validateToken(String token, String username) {
+        final String extractedUsername = extractUsername(token);
+        return (extractedUsername.equals(username) && !isTokenExpired(token));
+    }
+
 }
