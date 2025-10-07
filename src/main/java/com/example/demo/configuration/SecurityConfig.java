@@ -49,7 +49,8 @@ public AuthenticationManager authenticationManager(AuthenticationConfiguration a
                 .authorizeHttpRequests(authz ->
                         authz.requestMatchers(HttpMethod.POST, "/signup", "/login")
                                 .permitAll()
-                                .anyRequest().authenticated()
+                                .requestMatchers("/admin/**").permitAll()//Change later
+                                .anyRequest().hasRole("USER")
 
 
                 )

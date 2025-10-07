@@ -5,12 +5,16 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ExpenseService {
-    List<Expense> getExpensesByDay(String day);
-    List<Expense> getExpensesByCategoryAndMonth(String category, String month);
-    List<String> getAllExpensesCategory();
 
-    Optional<Expense> getExpenseById(Long id);
-    Expense addExpense(Expense expense);
-    boolean updateExpense(Expense expense);
-    boolean deleteExpense(Long id);
+
+    List<Expense> getAllUserExpenses(Long userId);
+    List<Expense> getExpensesByDay(String day,Long userId);
+    List<Expense> getExpensesByCategoryAndMonth(String category,
+                                                String month,Long userId);
+    List<String> getAllExpensesCategory(Long userId);
+
+    Optional<Expense> getExpenseById(Long id,Long userId);
+    Expense addExpense(Expense expense,Long userId);
+    boolean updateExpense(Expense expense,Long userId);
+    boolean deleteExpense(Long id,Long userId);
 }

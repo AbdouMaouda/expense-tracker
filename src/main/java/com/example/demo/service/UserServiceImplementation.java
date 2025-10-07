@@ -3,6 +3,8 @@ import com.example.demo.model.AppUser;
 import com.example.demo.repository.AppUserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserServiceImplementation implements UserService {
 
@@ -21,5 +23,10 @@ public class UserServiceImplementation implements UserService {
     @Override
     public AppUser getUserByUsername(String username) {
         return appUserRepository.findByUsername(username).orElse(null);
+    }
+
+    @Override
+    public Optional<AppUser> findUserById(Long id) {
+        return  appUserRepository.findById(id);
     }
 }
