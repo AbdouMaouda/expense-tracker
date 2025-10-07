@@ -2,6 +2,9 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.context.support.BeanDefinitionDsl;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -14,4 +17,14 @@ public class AppUser {
     @Column(unique = true)
     private String username;
     private String password;
+
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<Expense> expenses;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
 }

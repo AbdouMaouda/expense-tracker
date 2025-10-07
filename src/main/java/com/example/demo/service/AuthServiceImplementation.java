@@ -4,6 +4,7 @@ import com.example.demo.Dto.AppUserDto;
 import com.example.demo.Dto.AuthDto;
 import com.example.demo.Dto.AuthResponseDto;
 import com.example.demo.model.AppUser;
+import com.example.demo.model.Role;
 import com.example.demo.security.JwtUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -38,6 +39,7 @@ public class AuthServiceImplementation implements AuthService {
         appUser.setUsername(appUserDto.getUsername());
         appUser.setPassword(passwordEncoder.encode(appUserDto.getPassword()));
 
+        appUser.setRole(Role.USER);//default role
         userService.saveUser(appUser);
 
         String token = jwtUtil.generateToken(appUserDto.getUsername());
